@@ -20,27 +20,47 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<String> wishList = new ArrayList<String>();
-		String check = "s";
+		String check = "s", name = null, address = null;
 
 		Scanner in = new Scanner(System.in);
 
-		do {
-			System.out.print("Add new wish item: ");
-			String wish = in.nextLine();
-			wishList.add(wish);
+		System.out.print("Do you want to create a new wish list? (s/n)");
+		check = in.nextLine();
 
-			System.out.println("This list contains " + wishList.size() + " item...");
+		if (check.equalsIgnoreCase("s")) {
+			do {
+				System.out.print("Add a new wish item: ");
+				String wish = in.nextLine();
+				wishList.add(wish);
 
-			System.out.println("Continue? (s/n)");
-			check = in.nextLine();
-			System.out.println("");
-		} while (check.equalsIgnoreCase("s"));
+				System.out.println("This list contains " + wishList.size() + " item...");
 
-		Collections.sort(wishList);
-		Iterator<String> iterator = wishList.iterator();
-		System.out.println("List's item:");
-		while (iterator.hasNext())
-			System.out.println(iterator.next());
+				System.out.print("Continue? (s/n)");
+				check = in.nextLine();
+				System.out.println("");
+			} while (check.equalsIgnoreCase("s"));
+
+			Collections.sort(wishList);
+			Iterator<String> iterator = wishList.iterator();
+
+			System.out.println("List's items:");
+			while (iterator.hasNext())
+				System.out.println(iterator.next());
+		}
+
+		System.out.print("\nEnter name: ");
+		name = in.nextLine();
+		System.out.print("Enter address: ");
+		address = in.nextLine();
+
+		LetteraBabboNatale mail = new LetteraBabboNatale(name, address, wishList);
+		try {
+			System.out.println(mail.invia());
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+
+		in.close();
 	}
 
 }
